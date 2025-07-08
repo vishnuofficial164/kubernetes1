@@ -1,0 +1,30 @@
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl get nodes
+NAME                                       STATUS   ROLES    AGE    VERSION
+gke-cluster-1-default-pool-422e815d-k2l5   Ready    <none>   3m1s   v1.33.1-gke.1584000
+gke-cluster-1-default-pool-838bfa9d-xfrw   Ready    <none>   3m3s   v1.33.1-gke.1584000
+gke-cluster-1-default-pool-cba2d45f-gctm   Ready    <none>   3m6s   v1.33.1-gke.1584000
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl get pods
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl run mywebserver --image=nginx
+pod/mywebserver created
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+mywebserver   1/1     Running   0          53s
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl exec -it mywebserver --bash
+error: unknown flag: --bash
+See 'kubectl exec --help' for usage.
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl exec -it mywebserver -- bash
+root@mywebserver:/# ls
+bin   dev                  docker-entrypoint.sh  home  lib64  mnt  proc  run   srv  tmp  var
+boot  docker-entrypoint.d  etc                   lib   media  opt  root  sbin  sys  usr
+root@mywebserver:/# kubectl get pods
+bash: kubectl: command not found
+root@mywebserver:/# exit
+exit
+command terminated with exit code 127
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+mywebserver   1/1     Running   0          3m45s
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ kubectl delete pod mywebserver
+pod "mywebserver" deleted
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ 
