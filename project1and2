@@ -1,0 +1,96 @@
+vishnuraoyuva05@cloudshell:~$ ls
+k8s-coreconcepts  README-cloudshell.txt
+vishnuraoyuva05@cloudshell:~$ cd k8s-coreconcepts
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl create -f single-container-pod.yml
+pod/first-pod created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME        READY   STATUS    RESTARTS   AGE
+first-pod   1/1     Running   0          34s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl describe pod first-pod
+Name:             first-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             gke-cluster-1-default-pool-422e815d-k2l5/10.128.0.6
+Start Time:       Tue, 08 Jul 2025 16:22:02 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.84.1.5
+IPs:
+  IP:  10.84.1.5
+Containers:
+  my-first-container:
+    Container ID:   containerd://0f4d2d6d7acb45df8b639a4cd70e6dda1e64880cff6e8af1cc6f4dca5e678cf1
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:93230cd54060f497430c7a120e2347894846a81b6a5dd2110f7362c5423b4abc
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 08 Jul 2025 16:22:04 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w9lj9 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-w9lj9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  106s  default-scheduler  Successfully assigned default/first-pod to gke-cluster-1-default-pool-422e815d-k2l5
+  Normal  Pulling    106s  kubelet            Pulling image "nginx"
+  Normal  Pulled     104s  kubelet            Successfully pulled image "nginx" in 1.245s (1.245s including waiting). Image size: 72225394 bytes.
+  Normal  Created    104s  kubelet            Created container: my-first-container
+  Normal  Started    104s  kubelet            Started container my-first-container
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -o wide
+NAME        READY   STATUS    RESTARTS   AGE    IP          NODE                                       NOMINATED NODE   READINESS GATES
+first-pod   1/1     Running   0          3m2s   10.84.1.5   gke-cluster-1-default-pool-422e815d-k2l5   <none>           <none>
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get nodes
+NAME                                       STATUS   ROLES    AGE   VERSION
+gke-cluster-1-default-pool-422e815d-k2l5   Ready    <none>   39m   v1.33.1-gke.1584000
+gke-cluster-1-default-pool-838bfa9d-xfrw   Ready    <none>   39m   v1.33.1-gke.1584000
+gke-cluster-1-default-pool-cba2d45f-gctm   Ready    <none>   39m   v1.33.1-gke.1584000
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl exec -it first-pod -- /bin/sh
+# ls
+bin   dev                  docker-entrypoint.sh  home  lib64  mnt  proc  run   srv  tmp  var
+boot  docker-entrypoint.d  etc                   lib   media  opt  root  sbin  sys  usr
+# cd home
+# ls
+# hostname
+first-pod
+# exit
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl delete pod first-pod
+pod "first-pod" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+commands.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl create -f commands.yml
+Error from server (BadRequest): error when creating "commands.yml": pod in version "v1" cannot be handled as a Pod: no kind "pod" is registered for version "v1" in scheme "pkg/api/legacyscheme/scheme.go:30"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl create -f commands.yml
+pod/command-demo created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME           READY   STATUS             RESTARTS      AGE
+command-demo   0/1     CrashLoopBackOff   2 (13s ago)   33s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ 
