@@ -1,0 +1,105 @@
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f multi-container-pod.yml
+pod/multi-pod created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl describe pod multi-pod
+Name:             multi-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             gke-cluster-1-default-pool-07632694-3xgz/10.128.0.9
+Start Time:       Wed, 09 Jul 2025 11:29:21 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.52.0.7
+IPs:
+  IP:  10.52.0.7
+Containers:
+  c00:
+    Container ID:  containerd://fbb4c45fa7fec3f7cc0d93daa53223184f1671e84090791ed4c07e0722e709c6
+    Image:         ubuntu
+    Image ID:      docker.io/library/ubuntu@sha256:440dcf6a5640b2ae5c77724e68787a906afb8ddee98bf86db94eea8528c2c076
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      while true; do echo Vishnu Reddy; sleep 1; done
+    State:          Running
+      Started:      Wed, 09 Jul 2025 11:29:23 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-629xb (ro)
+  c01:
+    Container ID:  containerd://be4aad88cf42b86c26b3c063018f5f56d23ad7b14c35a8342c03edfb21f62af1
+    Image:         ubuntu
+    Image ID:      docker.io/library/ubuntu@sha256:440dcf6a5640b2ae5c77724e68787a906afb8ddee98bf86db94eea8528c2c076
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      while true; do echo Vishnu Reddy; sleep 1; done
+    State:          Running
+      Started:      Wed, 09 Jul 2025 11:29:23 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-629xb (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-629xb:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  8s    default-scheduler  Successfully assigned default/multi-pod to gke-cluster-1-default-pool-07632694-3xgz
+  Normal  Pulling    7s    kubelet            Pulling image "ubuntu"
+  Normal  Pulled     7s    kubelet            Successfully pulled image "ubuntu" in 131ms (131ms including waiting). Image size: 29727775 bytes.
+  Normal  Created    7s    kubelet            Created container: c00
+  Normal  Started    7s    kubelet            Started container c00
+  Normal  Pulling    7s    kubelet            Pulling image "ubuntu"
+  Normal  Pulled     7s    kubelet            Successfully pulled image "ubuntu" in 141ms (141ms including waiting). Image size: 29727775 bytes.
+  Normal  Created    7s    kubelet            Created container: c01
+  Normal  Started    7s    kubelet            Started container c01
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl logs multi-pod
+Defaulted container "c00" out of: c00, c01
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+Vishnu Reddy
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ 
