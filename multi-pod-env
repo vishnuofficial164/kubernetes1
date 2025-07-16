@@ -1,0 +1,90 @@
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f multi-container-env.yml
+pod/multi-pod-env created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+enviroments     2/2     Running   0          36m
+multi-pod       2/2     Running   0          41m
+multi-pod-env   2/2     Running   0          26s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl describe pod multi-pod-env
+Name:             multi-pod-env
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             gke-cluster-1-default-pool-ab487ba7-n86s/10.128.0.14
+Start Time:       Wed, 16 Jul 2025 16:00:22 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.112.1.6
+IPs:
+  IP:  10.112.1.6
+Containers:
+  con1:
+    Container ID:  containerd://bfc07bf8567b2bafe6633ca3d61a7d56b265efd97851f363ab7eeac271e703fc
+    Image:         ubuntu
+    Image ID:      docker.io/library/ubuntu@sha256:c4570d2f4665d5d118ae29fb494dee4f8db8fcfaee0e37a2e19b827f399070d3
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      while true; do echo Vishnu Reddy; sleep 1; done
+    State:          Running
+      Started:      Wed, 16 Jul 2025 16:00:26 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      VISHNU_M_1:  vishnu1
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lbdv4 (ro)
+  con2:
+    Container ID:  containerd://1bd2c01c1c4ac93994794c5728608c84c9e72ff7431e3d6ff87c7da3371d2fc1
+    Image:         ubuntu
+    Image ID:      docker.io/library/ubuntu@sha256:c4570d2f4665d5d118ae29fb494dee4f8db8fcfaee0e37a2e19b827f399070d3
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      while true; do echo Vishnu Reddy; sleep 1; done
+    State:          Running
+      Started:      Wed, 16 Jul 2025 16:00:27 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      VISHNU_M_2:  vishnu2exit
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lbdv4 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-lbdv4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  78s   default-scheduler  Successfully assigned default/multi-pod-env to gke-cluster-1-default-pool-ab487ba7-n86s
+  Normal  Pulling    77s   kubelet            Pulling image "ubuntu"
+  Normal  Pulled     74s   kubelet            Successfully pulled image "ubuntu" in 3.596s (3.596s including waiting). Image size: 29730584 bytes.
+  Normal  Created    74s   kubelet            Created container: con1
+  Normal  Started    74s   kubelet            Started container con1
+  Normal  Pulling    74s   kubelet            Pulling image "ubuntu"
+  Normal  Pulled     73s   kubelet            Successfully pulled image "ubuntu" in 229ms (229ms including waiting). Image size: 29730584 bytes.
+  Normal  Created    73s   kubelet            Created container: con2
+  Normal  Started    73s   kubelet            Started container con2
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ 
