@@ -1,0 +1,89 @@
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ ls
+k8s-coreconcepts  README-cloudshell.txt
+vishnuraoyuva05@cloudshell:~ (my-project-01-465107)$ cd k8s-coreconcepts
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  podrestart1.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+Error from server (BadRequest): error when creating "podrestart1.yml": Pod in version "v1" cannot be handled as a Pod: strict decoding error: unknown field "spec.restartpolicy"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+pod/testpod1 created
+pod/testpod1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME       READY   STATUS    RESTARTS   AGE
+testpod1   1/1     Running   0          11s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME       READY   STATUS             RESTARTS        AGE
+testpod1   0/1     CrashLoopBackOff   6 (2m22s ago)   9m7s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME       READY   STATUS             RESTARTS        AGE
+testpod1   0/1     CrashLoopBackOff   6 (2m35s ago)   9m20s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  podrestart1.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+The Pod "testpod1" is invalid: 
+* spec.restartPolicy: Unsupported value: "lsnfailure": supported values: "Always", "OnFailure", "Never"
+* spec: Forbidden: pod updates may not change fields other than `spec.containers[*].image`,`spec.initContainers[*].image`,`spec.activeDeadlineSeconds`,`spec.tolerations` (only additions to existing tolerations),`spec.terminationGracePeriodSeconds` (allow it to be set to 1 if it was previously negative)
+  core.PodSpec{
+        ... // 2 identical fields
+        Containers:                    {{Name: "container1", Image: "busybox", Command: {"sh", "-c", "sleep 10"}, VolumeMounts: {{Name: "kube-api-access-rhkpx", ReadOnly: true, MountPath: "/var/run/secrets/kubernetes.io/serviceaccount"}}, ...}},
+        EphemeralContainers:           nil,
+-       RestartPolicy:                 "Always",
++       RestartPolicy:                 "lsnfailure",
+        TerminationGracePeriodSeconds: &30,
+        ActiveDeadlineSeconds:         nil,
+        ... // 27 identical fields
+  }
+
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  podrestart1.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+The Pod "testpod1" is invalid: spec: Forbidden: pod updates may not change fields other than `spec.containers[*].image`,`spec.initContainers[*].image`,`spec.activeDeadlineSeconds`,`spec.tolerations` (only additions to existing tolerations),`spec.terminationGracePeriodSeconds` (allow it to be set to 1 if it was previously negative)
+  core.PodSpec{
+        ... // 2 identical fields
+        Containers:                    {{Name: "container1", Image: "busybox", Command: {"sh", "-c", "sleep 10"}, VolumeMounts: {{Name: "kube-api-access-rhkpx", ReadOnly: true, MountPath: "/var/run/secrets/kubernetes.io/serviceaccount"}}, ...}},
+        EphemeralContainers:           nil,
+-       RestartPolicy:                 "Always",
++       RestartPolicy:                 "OnFailure",
+        TerminationGracePeriodSeconds: &30,
+        ActiveDeadlineSeconds:         nil,
+        ... // 27 identical fields
+  }
+
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pod testpod1
+pod "testpod1" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+pod/testpod1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME       READY   STATUS      RESTARTS   AGE
+testpod1   0/1     Completed   0          14s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pod testpod1
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pod testpod1
+pod "testpod1" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml                       
+error: error parsing podrestart1.yml: error converting YAML to JSON: yaml: line 9: did not find expected ',' or ']'
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+error: error parsing podrestart1.yml: error converting YAML to JSON: yaml: line 9: did not find expected ',' or ']'
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+error: error parsing podrestart1.yml: error converting YAML to JSON: yaml: line 9: did not find expected ',' or ']'
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+pod/testpod1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods                                 
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pod testpod1                            
+pod "testpod1" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml                       
+error: error parsing podrestart1.yml: error converting YAML to JSON: yaml: line 11: found unexpected end of stream
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f podrestart1.yml
+pod/testpod1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME       READY   STATUS      RESTARTS   AGE
+testpod1   0/1     Completed   0          13s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ watch kubectl get pods                                 
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pod testpod1                            
+pod "testpod1" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ 
