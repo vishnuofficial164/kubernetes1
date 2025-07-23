@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp1
+  labels:
+    environment: prod
+    app: nginx
+spec:
+  containers:
+  - name: webapp-container
+    image: nginx
+    ports:
+    - containerPort: 80 
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp2
+  labels:
+    environment: dev
+spec:
+    app: nginx
+spec:
+  containers:
+  - name: webapp-container
+    image: nginx
+    ports:
+    - containerPort: 80 
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp3
+  labels:
+    environment: staging
+spec:
+    app: nginx
+spec:
+  containers:
+  - name: webapp-container
+    image: nginx
+    ports:
+    - containerPort: 80
