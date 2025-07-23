@@ -1,0 +1,76 @@
+Welcome to Cloud Shell! Type "help" to get started.
+To set your Cloud Platform project in this session use `gcloud config set project [PROJECT_ID]`.
+You can view your projects by running `gcloud projects list`.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  pod-label-1.yml  podrestart1.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f pod-label-1.yml
+pod/webapp1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+webapp1   1/1     Running   0          20s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+commands.yml  enviroments.yml  multi-container-env.yml  multi-container-pod.yml  pod-label-1.yml  pod-label2-dev.yml  podrestart1.yml  single-container-pod.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f pod-label2-dev.yml
+pod/webapp1 configured
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f pod-label2-dev.yml
+pod/webapp2 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f pod-label3-staging.yml
+pod/webapp3 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+webapp1   1/1     Running   0          7m11s
+webapp2   1/1     Running   0          2m20s
+webapp3   1/1     Running   0          13s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          7m59s   environment=dev
+webapp2   1/1     Running   0          3m8s    environment=dev
+webapp3   1/1     Running   0          61s     environment=staging
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+webapp1   1/1     Running   0          8m47s
+webapp2   1/1     Running   0          3m56s
+webapp3   1/1     Running   0          109s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl delete pod webapp1
+pod "webapp1" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ls
+commands.yml     multi-container-env.yml  pod-label-1.yml     pod-label3-staging.yml  single-container-pod.yml
+enviroments.yml  multi-container-pod.yml  pod-label2-dev.yml  podrestart1.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl apply -f pod-label-1.yml
+pod/webapp1 created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+webapp1   1/1     Running   0          7s
+webapp2   1/1     Running   0          5m21s
+webapp3   1/1     Running   0          3m14s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          15s     app=nginx,environment=prod
+webapp2   1/1     Running   0          5m29s   environment=dev
+webapp3   1/1     Running   0          3m22s   environment=staging
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -1 'environment = prod' --show labels
+Error: unknown shorthand flag: '1' in -1
+See 'kubectl get --help' for usage.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l environment=prod --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          3m29s   app=nginx,environment=prod
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l environment != staging --show-labels
+error: name cannot be provided when a selector is specified
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l 'environment!=staging' --show-labels
+NAME      READY   STATUS    RESTARTS   AGE    LABELS
+webapp1   1/1     Running   0          6m2s   app=nginx,environment=prod
+webapp2   1/1     Running   0          11m    environment=dev
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l 'environment!=dev' --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          6m42s   app=nginx,environment=prod
+webapp3   1/1     Running   0          9m49s   environment=staging
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l 'environment in (prod, dev)' --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          8m23s   app=nginx,environment=prod
+webapp2   1/1     Running   0          13m     environment=dev
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ kubectl get pods -l 'environment notin (staging, dev)' --show-labels
+NAME      READY   STATUS    RESTARTS   AGE     LABELS
+webapp1   1/1     Running   0          8m37s   app=nginx,environment=prod
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts$ 
