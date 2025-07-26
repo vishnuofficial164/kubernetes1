@@ -1,0 +1,202 @@
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+deployment.apps/nginx-deployment created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-84974fd9d4-c6kl7   1/1     Running   0          8s
+nginx-deployment-84974fd9d4-d6s78   1/1     Running   0          8s
+nginx-deployment-84974fd9d4-lq2n8   1/1     Running   0          8s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pod -o wide
+NAME                                READY   STATUS    RESTARTS   AGE   IP          NODE                                       NOMINATED NODE   READINESS GATES
+nginx-deployment-84974fd9d4-c6kl7   1/1     Running   0          55s   10.0.1.4    gke-cluster-1-default-pool-6a022a01-sqqd   <none>           <none>
+nginx-deployment-84974fd9d4-d6s78   1/1     Running   0          55s   10.0.2.5    gke-cluster-1-default-pool-c9a8fe16-k4mn   <none>           <none>
+nginx-deployment-84974fd9d4-lq2n8   1/1     Running   0          55s   10.0.0.13   gke-cluster-1-default-pool-9926a903-3lm8   <none>           <none>
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get nodes
+NAME                                       STATUS   ROLES    AGE   VERSION
+gke-cluster-1-default-pool-6a022a01-sqqd   Ready    <none>   22m   v1.33.2-gke.1111000
+gke-cluster-1-default-pool-9926a903-3lm8   Ready    <none>   22m   v1.33.2-gke.1111000
+gke-cluster-1-default-pool-c9a8fe16-k4mn   Ready    <none>   22m   v1.33.2-gke.1111000
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pod -1 app=nginx-app
+error: unknown shorthand flag: '1' in -1
+See 'kubectl get --help' for usage.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pod -l app=nginx-app
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-84974fd9d4-c6kl7   1/1     Running   0          3m59s
+nginx-deployment-84974fd9d4-d6s78   1/1     Running   0          3m59s
+nginx-deployment-84974fd9d4-lq2n8   1/1     Running   0          3m59s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rc nginx-rc
+Error from server (NotFound): replicationcontrollers "nginx-rc" not found
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+replicationcontroller/nginx-rc created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-84974fd9d4-c6kl7   1/1     Running   0          8m15s
+nginx-deployment-84974fd9d4-d6s78   1/1     Running   0          8m15s
+nginx-deployment-84974fd9d4-lq2n8   1/1     Running   0          8m15s
+nginx-rc-79ctm                      1/1     Running   0          24s
+nginx-rc-n522w                      1/1     Running   0          24s
+nginx-rc-zg2pt                      1/1     Running   0          24s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pods --all
+pod "nginx-deployment-84974fd9d4-c6kl7" deleted
+pod "nginx-deployment-84974fd9d4-d6s78" deleted
+pod "nginx-deployment-84974fd9d4-lq2n8" deleted
+pod "nginx-rc-79ctm" deleted
+pod "nginx-rc-n522w" deleted
+pod "nginx-rc-zg2pt" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+replicationcontroller/nginx-rc unchanged
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+replicationcontroller/nginx-rc unchanged
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-84974fd9d4-426ld   1/1     Running   0          61s
+nginx-deployment-84974fd9d4-ntw6q   1/1     Running   0          61s
+nginx-deployment-84974fd9d4-qsgnx   1/1     Running   0          61s
+nginx-rc-gq97j                      1/1     Running   0          61s
+nginx-rc-h5xqt                      1/1     Running   0          60s
+nginx-rc-vnpfs                      1/1     Running   0          60s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete deployment nginx-deployment
+deployment.apps "nginx-deployment" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete rc nginx-rc
+replicationcontroller "nginx-rc" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+replicationcontroller/nginx-rc created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rc-hr69m   1/1     Running   0          10s
+nginx-rc-ln48h   1/1     Running   0          10s
+nginx-rc-m4tfs   1/1     Running   0          10s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pod -o wide
+NAME             READY   STATUS    RESTARTS   AGE   IP          NODE                                       NOMINATED NODE   READINESS GATES
+nginx-rc-hr69m   1/1     Running   0          28s   10.0.1.8    gke-cluster-1-default-pool-6a022a01-sqqd   <none>           <none>
+nginx-rc-ln48h   1/1     Running   0          28s   10.0.2.9    gke-cluster-1-default-pool-c9a8fe16-k4mn   <none>           <none>
+nginx-rc-m4tfs   1/1     Running   0          28s   10.0.0.17   gke-cluster-1-default-pool-9926a903-3lm8   <none>           <none>
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pod -l app=nginx-app
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rc-hr69m   1/1     Running   0          59s
+nginx-rc-ln48h   1/1     Running   0          59s
+nginx-rc-m4tfs   1/1     Running   0          59s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rc nginx-rc
+NAME       DESIRED   CURRENT   READY   AGE
+nginx-rc   3         3         3       74s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl describe rc nginx-rc
+Name:         nginx-rc
+Namespace:    default
+Selector:     app=nginx-app
+Labels:       app=nginx-app
+Annotations:  <none>
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=nginx-app
+  Containers:
+   nginx-container:
+    Image:         nginx
+    Port:          80/TCP
+    Host Port:     0/TCP
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                    Message
+  ----    ------            ----  ----                    -------
+  Normal  SuccessfulCreate  2m3s  replication-controller  Created pod: nginx-rc-hr69m
+  Normal  SuccessfulCreate  2m3s  replication-controller  Created pod: nginx-rc-m4tfs
+  Normal  SuccessfulCreate  2m3s  replication-controller  Created pod: nginx-rc-ln48h
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rc.yml
+replicationcontroller/nginx-rc configured
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rc-hr69m   1/1     Running   0          3m49s
+nginx-rc-ln48h   1/1     Running   0          3m49s
+nginx-rc-m4tfs   1/1     Running   0          3m49s
+nginx-rc-qf56m   1/1     Running   0          17s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl scale rc nginx-rc --replicas=5
+replicationcontroller/nginx-rc scaled
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rc-hr69m   1/1     Running   0          5m29s
+nginx-rc-ln48h   1/1     Running   0          5m29s
+nginx-rc-m4tfs   1/1     Running   0          5m29s
+nginx-rc-qf56m   1/1     Running   0          117s
+nginx-rc-qvspl   1/1     Running   0          12s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl scale rc nginx-rc --replicas=3
+replicationcontroller/nginx-rc scaled
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rc-hr69m   1/1     Running   0          6m32s
+nginx-rc-ln48h   1/1     Running   0          6m32s
+nginx-rc-m4tfs   1/1     Running   0          6m32s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete -f nginx-rc.yml
+replicationcontroller "nginx-rc" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods                                      
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ls
+commands.yml             multi-container-pod.yml  pod-label-1.yml         podrestart1.yml
+enviroments.yml          nginx-rc.yml             pod-label2-dev.yml      single-container-pod.yml
+multi-container-env.yml  nginx-rs.yml             pod-label3-staging.yml
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rs.yml
+Error from server (BadRequest): error when creating "nginx-rs.yml": ReplicaSet in version "v1" cannot be handled as a ReplicaSet: strict decoding error: unknown field "spec.template.spec.containers[0].selector"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f nginx-rs.yml
+replicaset.apps/nginx-rs created
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rs-4shqd   1/1     Running   0          17s
+nginx-rs-m9tbs   1/1     Running   0          17s
+nginx-rs-rk5vx   1/1     Running   0          17s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME       DESIRED   CURRENT   READY   AGE
+nginx-rs   3         3         3       43s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl describe rs nginx-rs
+Name:         nginx-rs
+Namespace:    default
+Selector:     app=nginx-app,tier=frontend
+Labels:       <none>
+Annotations:  <none>
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=nginx-app
+           tier=frontend
+  Containers:
+   nginx-container:
+    Image:         nginx
+    Port:          80/TCP
+    Host Port:     0/TCP
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  76s   replicaset-controller  Created pod: nginx-rs-rk5vx
+  Normal  SuccessfulCreate  76s   replicaset-controller  Created pod: nginx-rs-4shqd
+  Normal  SuccessfulCreate  76s   replicaset-controller  Created pod: nginx-rs-m9tbs
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl scale rs nginx-rs --replicas=5
+replicaset.apps/nginx-rs scaled
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rs-4shqd   1/1     Running   0          3m29s
+nginx-rs-dpxln   1/1     Running   0          17s
+nginx-rs-m9tbs   1/1     Running   0          3m29s
+nginx-rs-rk5vx   1/1     Running   0          3m29s
+nginx-rs-szj9w   1/1     Running   0          17s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl scale rs nginx-rs --replicas=3
+replicaset.apps/nginx-rs scaled
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rs-4shqd   1/1     Running   0          3m56s
+nginx-rs-m9tbs   1/1     Running   0          3m56s
+nginx-rs-rk5vx   1/1     Running   0          3m56s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete -f nginx-rs.yml
+replicaset.apps "nginx-rs" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ 
