@@ -680,4 +680,32 @@ version1
 version1
 version1
 version1
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete rs --all
+replicaset.apps "mydeployment-56d5c6764d" deleted
+replicaset.apps "mydeployment-5f7479d45c" deleted
+replicaset.apps "mydeployment-7f9b7765ff" deleted
+replicaset.apps "mydeployment-8698d459d7" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete pods --all
+pod "mydeployment-8698d459d7-lkxrj" deleted
+pod "mydeployment-8698d459d7-pg6ls" deleted
+pod "mydeployment-8698d459d7-qmjvf" deleted
+pod "mydeployment-8698d459d7-sqcpm" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-8698d459d7-k9q49   1/1     Running   0          51s
+mydeployment-8698d459d7-tbxlw   1/1     Running   0          50s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl delete deployment mydeployment
+deployment.apps "mydeployment" deleted
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-8698d459d7-k9q49   1/1     Terminating   0          2m5s
+mydeployment-8698d459d7-tbxlw   1/1     Terminating   0          2m4s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-8698d459d7-k9q49   1/1     Terminating   0          2m19s
+mydeployment-8698d459d7-tbxlw   1/1     Terminating   0          2m18s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get deployment
+No resources found in default namespace.
 vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ 
