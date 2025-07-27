@@ -1,0 +1,683 @@
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-8698d459d7-8569n   1/1     Running   0          8m6s
+mydeployment-8698d459d7-mgpq9   1/1     Running   0          8m6s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rc
+No resources found in default namespace.
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-8698d459d7   2         2         2       8m31s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl describe deploy mydeployment
+Name:                   mydeployment
+Namespace:              default
+CreationTimestamp:      Sun, 27 Jul 2025 08:00:57 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=deployment
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=deployment
+  Containers:
+   c00:
+    Image:      ubuntu
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      /bin/bash
+      -c
+      while true; do echo version1; sleep 5; done
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   mydeployment-8698d459d7 (2/2 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  8m40s  deployment-controller  Scaled up replica set mydeployment-8698d459d7 from 0 to 2
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-8698d459d7-mgpq9
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+^[[A^[[Aversion1
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-8698d459d7-8569n   1/1     Running   0          9m5s
+mydeployment-8698d459d7-mgpq9   1/1     Running   0          9m5s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-8698d459d7-8569n
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-8698d459d7-8569n   1/1     Running   0          13m
+mydeployment-8698d459d7-mgpq9   1/1     Running   0          13m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f mydeploy.yaml
+deployment.apps/mydeployment configured
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS         RESTARTS   AGE
+mydeployment-7f9b7765ff-6rr75   0/1     ErrImagePull   0          29s
+mydeployment-8698d459d7-8569n   1/1     Running        0          13m
+mydeployment-8698d459d7-mgpq9   1/1     Running        0          13m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS             RESTARTS   AGE
+mydeployment-7f9b7765ff-6rr75   0/1     ImagePullBackOff   0          41s
+mydeployment-8698d459d7-8569n   1/1     Running            0          14m
+mydeployment-8698d459d7-mgpq9   1/1     Running            0          14m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS             RESTARTS   AGE
+mydeployment-7f9b7765ff-6rr75   0/1     ImagePullBackOff   0          48s
+mydeployment-8698d459d7-8569n   1/1     Running            0          14m
+mydeployment-8698d459d7-mgpq9   1/1     Running            0          14m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS         RESTARTS   AGE
+mydeployment-7f9b7765ff-6rr75   0/1     ErrImagePull   0          68s
+mydeployment-8698d459d7-8569n   1/1     Running        0          14m
+mydeployment-8698d459d7-mgpq9   1/1     Running        0          14m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f mydeploy.yaml
+deployment.apps/mydeployment configured
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS              RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   0/1     ContainerCreating   0          5s
+mydeployment-8698d459d7-8569n   1/1     Running             0          16m
+mydeployment-8698d459d7-mgpq9   1/1     Running             0          16m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Running       0          17s
+mydeployment-56d5c6764d-tdsgd   1/1     Running       0          10s
+mydeployment-8698d459d7-8569n   1/1     Terminating   0          16m
+mydeployment-8698d459d7-mgpq9   1/1     Terminating   0          16m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Running       0          22s
+mydeployment-56d5c6764d-tdsgd   1/1     Running       0          15s
+mydeployment-8698d459d7-8569n   1/1     Terminating   0          16m
+mydeployment-8698d459d7-mgpq9   1/1     Terminating   0          16m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Running       0          43s
+mydeployment-56d5c6764d-tdsgd   1/1     Running       0          36s
+mydeployment-8698d459d7-8569n   1/1     Terminating   0          17m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Running   0          58s
+mydeployment-56d5c6764d-tdsgd   1/1     Running   0          51s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   2         2         2       85s
+mydeployment-7f9b7765ff   0         0         0       4m28s
+mydeployment-8698d459d7   0         0         0       17m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   2         2         2       106s
+mydeployment-7f9b7765ff   0         0         0       4m49s
+mydeployment-8698d459d7   0         0         0       18m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployments^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-56d5c6764d
+error: error from server (NotFound): pods "mydeployment-56d5c6764d" not found in namespace "default"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-7f9b7765ff
+error: error from server (NotFound): pods "mydeployment-7f9b7765ff" not found in namespace "default"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-56d5c6764d-2j7d9
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Running   0          6m51s
+mydeployment-56d5c6764d-tdsgd   1/1     Running   0          6m44s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl exec mydeployment-56d5c6764d-2j7d9 -- cat /etc/
+os-release
+NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="7"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:centos:centos:7"
+HOME_URL="https://www.centos.org/"
+BUG_REPORT_URL="https://bugs.centos.org/"
+
+CENTOS_MANTISBT_PROJECT="CentOS-7"
+CENTOS_MANTISBT_PROJECT_VERSION="7"
+REDHAT_SUPPORT_PRODUCT="centos"
+REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl apply -f mydeploy.yaml
+deployment.apps/mydeployment configured
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-56d5c6764d-2j7d9   1/1     Terminating   0          12m
+mydeployment-56d5c6764d-tdsgd   1/1     Terminating   0          12m
+mydeployment-5f7479d45c-7r489   1/1     Running       0          20s
+mydeployment-5f7479d45c-svt9q   1/1     Running       0          18s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   0         0         0       12m
+mydeployment-5f7479d45c   2         2         2       34s
+mydeployment-7f9b7765ff   0         0         0       15m
+mydeployment-8698d459d7   0         0         0       29m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-5f7479d45c-7r489   1/1     Running   0          73s
+mydeployment-5f7479d45c-svt9q   1/1     Running   0          71s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-5f7479d45c-7r489
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   0         0         0       14m
+mydeployment-5f7479d45c   2         2         2       2m31s
+mydeployment-7f9b7765ff   0         0         0       17m
+mydeployment-8698d459d7   0         0         0       31m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ ^C
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-5f7479d45c-7r489   1/1     Running   0          4m44s
+mydeployment-5f7479d45c-svt9q   1/1     Running   0          4m42s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl rollback undo deployment mydeployment
+error: unknown command "rollback" for "kubectl"
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl rollout undo deployment mydeployment
+deployment.apps/mydeployment rolled back
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   2         2         2       18m
+mydeployment-5f7479d45c   0         0         0       6m10s
+mydeployment-7f9b7765ff   0         0         0       21m
+mydeployment-8698d459d7   0         0         0       34m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-56d5c6764d-7p8gs   1/1     Running   0          33s
+mydeployment-56d5c6764d-lhgzd   1/1     Running   0          34s
+mydeployment-5f7479d45c-svt9q   0/1     Error     0          6m27s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-56d5c6764d-7p8gs   1/1     Running   0          41s
+mydeployment-56d5c6764d-lhgzd   1/1     Running   0          42s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-56d5c6764d-7p8gs
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+version2
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl rollout undo deployment mydeployment
+deployment.apps/mydeployment rolled back
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-56d5c6764d-7p8gs   1/1     Terminating   0          114s
+mydeployment-56d5c6764d-lhgzd   1/1     Terminating   0          115s
+mydeployment-5f7479d45c-85wdq   1/1     Running       0          4s
+mydeployment-5f7479d45c-jq8n2   1/1     Running       0          7s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   0         0         0       20m
+mydeployment-5f7479d45c   2         2         2       7m59s
+mydeployment-7f9b7765ff   0         0         0       23m
+mydeployment-8698d459d7   0         0         0       36m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-5f7479d45c-85wdq
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+version3
+^Cvishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl rollout history deployment mydeployment
+deployment.apps/mydeployment 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+5         <none>
+6         <none>
+
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl rollout undo deployment mydeployment --to-revision=1
+deployment.apps/mydeployment rolled back
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS        RESTARTS   AGE
+mydeployment-5f7479d45c-85wdq   1/1     Terminating   0          4m21s
+mydeployment-5f7479d45c-jq8n2   1/1     Terminating   0          4m24s
+mydeployment-8698d459d7-m2ztf   1/1     Running       0          18s
+mydeployment-8698d459d7-zjcvh   1/1     Running       0          20s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   0         0         0       24m
+mydeployment-5f7479d45c   0         0         0       12m
+mydeployment-7f9b7765ff   0         0         0       27m
+mydeployment-8698d459d7   2         2         2       41m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mydeployment-8698d459d7-m2ztf   1/1     Running   0          56s
+mydeployment-8698d459d7-zjcvh   1/1     Running   0          58s
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+mydeployment-56d5c6764d   0         0         0       24m
+mydeployment-5f7479d45c   0         0         0       12m
+mydeployment-7f9b7765ff   0         0         0       27m
+mydeployment-8698d459d7   2         2         2       41m
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ kubectl logs -f mydeployment-8698d459d7-m2ztf
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+version1
+vishnuraoyuva05@cloudshell:~/k8s-coreconcepts (my-project-01-465107)$ 
